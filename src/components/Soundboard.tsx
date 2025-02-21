@@ -159,7 +159,7 @@ const Soundboard = () => {
               variant="outline"
               size="sm"
               onClick={() => setShowAddForm(!showAddForm)}
-              className="text-white"
+              className="text-white bg-black"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add Sound
