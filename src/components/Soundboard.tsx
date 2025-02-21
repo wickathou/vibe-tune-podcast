@@ -152,9 +152,12 @@ const Soundboard = () => {
       <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
+            <div>
             <h1 className="text-3xl font-bold text-white/90">
               Soundboard
             </h1>
+            <a className='text-white' href='https://javi.ju.mp/' target='blank'>By Javi</a>
+            </div>
             <Button
               variant="outline"
               size="sm"
