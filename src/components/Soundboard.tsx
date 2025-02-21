@@ -28,7 +28,7 @@ const Soundboard = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [newSound, setNewSound] = useState({ name: '', src: '', category: '' });
   const { toast } = useToast();
-  
+
   // Recording states
   const [isRecording, setIsRecording] = useState(false);
   const [recordingName, setRecordingName] = useState('');
@@ -69,7 +69,7 @@ const Soundboard = () => {
       mediaRecorder.onstop = () => {
         const audioBlob = new Blob(chunksRef.current, { type: 'audio/wav' });
         const audioUrl = URL.createObjectURL(audioBlob);
-        
+
         const newSoundObj = {
           id: Date.now().toString(),
           name: recordingName,
@@ -133,7 +133,7 @@ const Soundboard = () => {
     setSounds(prevSounds => [...prevSounds, newSoundObj]);
     setNewSound({ name: '', src: '', category: '' });
     setShowAddForm(false);
-    
+
     toast({
       title: "Success",
       description: "Sound added successfully!",
@@ -153,10 +153,10 @@ const Soundboard = () => {
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <div>
-            <h1 className="text-3xl font-bold text-white/90">
-              Soundboard
-            </h1>
-            <a className='text-white' href='https://javi.ju.mp/' target='blank'>By Javi</a>
+              <h1 className="text-3xl font-bold text-white/90">
+                Soundboard
+              </h1>
+              <a className='text-white' href='https://javi.ju.mp/' target='blank'>By Javi</a>
             </div>
             <Button
               variant="outline"
@@ -207,7 +207,7 @@ const Soundboard = () => {
                 />
                 <div className="flex gap-2">
                   {!isRecording ? (
-                    <Button 
+                    <Button
                       onClick={startRecording}
                       className="w-full"
                     >
@@ -215,7 +215,7 @@ const Soundboard = () => {
                       Start Recording
                     </Button>
                   ) : (
-                    <Button 
+                    <Button
                       onClick={stopRecording}
                       variant="destructive"
                       className="w-full"
@@ -228,7 +228,7 @@ const Soundboard = () => {
               </div>
             </div>
           )}
-          
+
           <div className="flex items-center justify-center gap-2 p-2">
             {categories.map((cat) => (
               <button
