@@ -5,10 +5,10 @@ import { Volume2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const SAMPLE_SOUNDS = [
-  { id: '1', name: 'bruh', src: '/sounds/kick.mp3', category: 'Meme' },
-  { id: '2', name: 'boom', src: '/sounds/snare.mp3', category: 'Meme' },
-  { id: '3', name: 'dramatic', src: '/sounds/hihat.mp3', category: 'Meme' },
-  { id: '4', name: 'omg', src: '/sounds/clap.mp3', category: 'Meme' },
+  { id: '1', name: 'Bruh', src: '/sounds/bruh.mp3', category: 'Meme' },
+  { id: '2', name: 'Boom', src: '/sounds/boom.mp3', category: 'Meme' },
+  { id: '3', name: 'Dramatic', src: '/sounds/dramatic_hell_kitchens.mp3', category: 'Meme' },
+  { id: '4', name: 'OMG Hell No', src: '/sounds/omg_hell_no.mp3', category: 'Meme' },
 ];
 
 const Soundboard = () => {
