@@ -20,6 +20,7 @@ const DEFAULT_SOUNDS = [
   { id: '3', name: 'that sus', src: '/sounds/dramatic_hell_kitchens.mp3', category: 'Meme' },
   { id: '4', name: 'Rizz', src: '/sounds/rizz.mp3', category: 'Meme' },
   { id: '5', name: 'OMG Hell No', src: '/sounds/omg_hell_no.mp3', category: 'Meme' },
+  { id: '5', name: 'Damn son!', src: '/sounds/damn_son.mp3', category: 'Meme' },
 ];
 
 const Soundboard = () => {
