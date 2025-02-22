@@ -1,11 +1,10 @@
-
 import { useCallback, useState, useEffect, useRef } from 'react';
 import SoundPad from './SoundPad';
 import { Volume2, Plus, Mic, Square } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { useToast } from './ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 interface CustomSound {
   id: string;
@@ -28,7 +27,7 @@ const Soundboard = () => {
   const [volume, setVolume] = useState(1);
   const [sounds, setSounds] = useState<CustomSound[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
-  const [newSound, setNewSound] = useState({ name: '', src: '', category: '' });
+  const [newSound, setNewSound] = useState({ name: '', src: '', category: 'URL' });
   const { toast } = useToast();
 
   // Recording states
@@ -113,8 +112,15 @@ const Soundboard = () => {
     }
   };
 
+  const handleDeleteSound = (id: string) => {
+    const customSounds = sounds.filter(s => !DEFAULT_SOUNDS.some(d => d.id === s.id));
+    const updatedCustomSounds = customSounds.filter(s => s.id !== id);
+    localStorage.setItem('customSounds', JSON.stringify(updatedCustomSounds));
+    setSounds(prevSounds => [...DEFAULT_SOUNDS, ...updatedCustomSounds]);
+  };
+
   const handleAddSound = () => {
-    if (!newSound.name || !newSound.src || !newSound.category) {
+    if (!newSound.name || !newSound.src) {
       toast({
         variant: "destructive",
         title: "Error",
@@ -133,7 +139,7 @@ const Soundboard = () => {
     localStorage.setItem('customSounds', JSON.stringify(updatedCustomSounds));
 
     setSounds(prevSounds => [...prevSounds, newSoundObj]);
-    setNewSound({ name: '', src: '', category: '' });
+    setNewSound({ name: '', src: '', category: 'URL' });
     setShowAddForm(false);
 
     toast({
@@ -265,7 +271,12 @@ const Soundboard = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredSounds().map((sound) => (
-            <SoundPad key={sound.id} sound={sound} />
+            <SoundPad 
+              key={sound.id} 
+              sound={sound} 
+              onDelete={!DEFAULT_SOUNDS.some(d => d.id === sound.id) ? handleDeleteSound : undefined}
+              isCustom={!DEFAULT_SOUNDS.some(d => d.id === sound.id)}
+            />
           ))}
         </div>
       </div>
@@ -274,4 +285,3 @@ const Soundboard = () => {
 };
 
 export default Soundboard;
-
