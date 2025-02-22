@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Sound, useSound } from '@/hooks/useSound';
 import { cn } from '@/lib/utils';
 import { Music, Link, Mic, Trash2, Clock } from 'lucide-react';
@@ -14,25 +14,9 @@ interface SoundPadProps {
 }
 
 const SoundPad = ({ sound, onDelete, isCustom = false }: SoundPadProps) => {
-  const { play, stop, isPlaying } = useSound(sound);
+  const { play, stop, isPlaying, duration } = useSound(sound);
   const [isPressed, setIsPressed] = useState(false);
-  const [duration, setDuration] = useState<number | null>(null);
   const { toast } = useToast();
-  const audioRef = useRef<HTMLAudioElement>();
-
-  useEffect(() => {
-    // Create an audio element to get duration
-    const audio = new Audio(sound.src);
-    audioRef.current = audio;
-    
-    audio.addEventListener('loadedmetadata', () => {
-      setDuration(Math.round(audio.duration));
-    });
-
-    return () => {
-      audio.remove();
-    };
-  }, [sound.src]);
 
   const handlePress = () => {
     setIsPressed(true);
@@ -123,4 +107,3 @@ const SoundPad = ({ sound, onDelete, isCustom = false }: SoundPadProps) => {
 };
 
 export default SoundPad;
-
