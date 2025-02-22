@@ -19,7 +19,13 @@ export const useSound = (sound: Sound) => {
       audioRef.current.volume = volume;
     }
     
-    if (!isPlaying) {
+    if (isPlaying) {
+      // If already playing, stop the sound
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setIsPlaying(false);
+    } else {
+      // If not playing, start the sound
       audioRef.current.currentTime = 0;
       audioRef.current.play();
       setIsPlaying(true);

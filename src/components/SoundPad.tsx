@@ -21,18 +21,20 @@ const SoundPad = ({ sound, onDelete, isCustom = false }: SoundPadProps) => {
   const audioRef = useRef<HTMLAudioElement>();
 
   useEffect(() => {
-    // Create an audio element to get duration
-    const audio = new Audio(sound.src);
-    audioRef.current = audio;
-    
-    audio.addEventListener('loadedmetadata', () => {
-      setDuration(Math.round(audio.duration));
-    });
+    // Only get duration for default sounds (non-custom)
+    if (!isCustom) {
+      const audio = new Audio(sound.src);
+      audioRef.current = audio;
+      
+      audio.addEventListener('loadedmetadata', () => {
+        setDuration(Math.round(audio.duration));
+      });
 
-    return () => {
-      audio.remove();
-    };
-  }, [sound.src]);
+      return () => {
+        audio.remove();
+      };
+    }
+  }, [sound.src, isCustom]);
 
   const handlePress = () => {
     setIsPressed(true);
@@ -87,7 +89,7 @@ const SoundPad = ({ sound, onDelete, isCustom = false }: SoundPadProps) => {
                 <span className="text-sm font-medium text-white/90">
                   {sound.name}
                 </span>
-                {duration && (
+                {duration && !isCustom && (
                   <div className="flex items-center gap-1 text-xs text-white/60">
                     <Clock className="w-3 h-3" />
                     {formatDuration(duration)}
@@ -100,7 +102,7 @@ const SoundPad = ({ sound, onDelete, isCustom = false }: SoundPadProps) => {
             </button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Click to play {sound.name}</p>
+            <p>Click to play/stop {sound.name}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -123,4 +125,3 @@ const SoundPad = ({ sound, onDelete, isCustom = false }: SoundPadProps) => {
 };
 
 export default SoundPad;
-
