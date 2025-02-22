@@ -1,5 +1,5 @@
 
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback } from 'react';
 
 export interface Sound {
   id: string;
@@ -10,36 +10,8 @@ export interface Sound {
 
 export const useSound = (sound: Sound) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(1);
-  const [duration, setDuration] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    // Create audio element and set up duration detection
-    const audio = new Audio(sound.src);
-    audioRef.current = audio;
-    
-    const handleLoadedMetadata = () => {
-      setDuration(Math.round(audio.duration));
-    };
-
-    // For Blob URLs (recordings), we need to wait for the audio to be loaded
-    if (sound.category === 'Recorded') {
-      audio.preload = 'metadata';
-    }
-
-    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
-
-    // If the audio already has metadata, set duration immediately
-    if (audio.duration) {
-      setDuration(Math.round(audio.duration));
-    }
-
-    return () => {
-      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      audio.remove();
-    };
-  }, [sound.src, sound.category]);
+  const [volume, setVolume] = useState(1);
 
   const play = useCallback(() => {
     if (!audioRef.current) {
@@ -73,5 +45,5 @@ export const useSound = (sound: Sound) => {
     }
   }, []);
 
-  return { play, stop, isPlaying, volume, updateVolume, duration };
+  return { play, stop, isPlaying, volume, updateVolume };
 };
