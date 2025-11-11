@@ -18,4 +18,3 @@ addons:
   - name: Postgres
     identifier: postgres
     package: https://github.com/diploi/addon-postgres#main
-g
