@@ -11,9 +11,12 @@ const SoundboardHeader = ({ onAddSoundClick }: SoundboardHeaderProps) => {
     <div className="flex items-center justify-between">
       <div>
         <h1 className="text-3xl font-bold text-white/90">
-          Soundboard
+          Soundboarded
         </h1>
-        <a className='text-white' href='https://javi.ju.mp/' target='blank'>By Javi</a>
+        <div className='flex flex-col'>
+          <a className='text-white hover:text-blue-400' href='https://javi.ju.mp/' target='blank'>By Javi</a>
+          <a className='text-white hover:text-blue-400' href='https://diploi.com/' target='blank'>Hosted on Diploi.com</a>
+        </div>
       </div>
       <Button
         variant="outline"
